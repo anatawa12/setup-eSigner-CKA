@@ -11,7 +11,7 @@ import path from "node:path";
 import { Readable } from "node:stream";
 import { finished } from "node:stream/promises";
 
-const version = "1.0.6";
+const version = "1.0.7";
 const setupZipUrl =
 	`https://github.com/SSLcom/eSignerCKA/releases/download/v${version}/SSL.COM-eSigner-CKA_${version}.zip`;
 
