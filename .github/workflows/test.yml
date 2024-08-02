@@ -52,7 +52,7 @@ jobs:
         run: |
           $CodeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
           echo "THUMBPRINT: $($CodeSigningCert.Thumbprint)"
-          echo "THUMBPRINT=$($CodeSigningCert.Thumbprint)” >> $env:GITHUB_ENV
+          echo "THUMBPRINT=$($CodeSigningCert.Thumbprint)" >> $env:GITHUB_ENV
 
   conclude:
     runs-on: ubuntu-latest
