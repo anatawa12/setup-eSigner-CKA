@@ -19,6 +19,7 @@ async function run(): Promise<void> {
 		const runnerTemp = process.env.RUNNER_TEMP;
 		assert.ok(runnerTemp, "RUNNER_TEMP is not set");
 		const tempDir = path.join(runnerTemp, randomUUID());
+		await io.mkdirP(tempDir);
 		const downloadedZip = path.join(tempDir, "downloaded.zip");
 		const extractDir = path.join(tempDir, "extracted");
 
