@@ -106,7 +106,7 @@ async function run(): Promise<void> {
 				username,
 				"-pass",
 				password,
-				"-totp-secret",
+				"-totp",
 				totpSecret,
 				"-key",
 				masterKeyFile,
