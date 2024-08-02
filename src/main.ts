@@ -78,7 +78,9 @@ async function run(): Promise<void> {
 			},
 		);
 		core.info(`Using installer: ${installerName}`);
-		const installerPath = path.join(extractDir, installerName);
+		const originalInstaller = path.join(extractDir, installerName);
+		const installerPath = path.join(extractDir, "installer.exe");
+		await io.mv(originalInstaller, installerPath);
 
 		// Setup eSignerCKA in Silent Mode
 		await core.group("Running installer in silent mode", async () => {
