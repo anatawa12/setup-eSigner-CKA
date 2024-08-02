@@ -2,12 +2,31 @@ name: 'typescript action template for anatawa12'
 description: 'An template action'
 author: 'anatawa12'
 
-inputs: {}
-  # define the inputs of your action here
+inputs: 
+  install-dir:
+    description: 'The directory to install the eSignerCKA'
+    required: false
+  mode:
+    description: 'The mode of the eSignerCKA. "product" or "sandbox"'
+    required: true
+    default: product
+  username:
+    description: 'The username of the SSLcom account'
+    required: true
+  password:
+    description: 'The password of the SSLcom account'
+    required: true
+  totp-secret:
+    description: 'The TOTP secret of the SSLcom account'
+    required: true
+  master-key-file:
+    description: 'The path to the master key file Defaults to $INSTALL_DIR/master.key'
+    required: false
 
 runs:
   using: 'node20'
   main: 'dist/index.js'
 
-outputs: {}
-  # define the outputs of your action here
+outputs:
+  install-dir:
+    description: 'The directory to install the eSignerCKA'

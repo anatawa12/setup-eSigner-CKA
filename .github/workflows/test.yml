@@ -30,15 +30,29 @@ jobs:
     strategy:
       matrix: 
         on:
-          - ubuntu-latest
+          - windows-latest
     runs-on: ${{ matrix.on }}
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: built
 
+      # using demo account
+      # https://www.ssl.com/guide/esigner-demo-credentials-and-certificates/
       - uses: ./
-        with: {}
+        with:
+          mode: sandbox
+          username: esigner_demo
+          password: esignerDemo#1
+          totp-secret: RDXYgV9qju+6/7GnMf1vCbKexXVJmUVr+86Wq/8aIGg=
+
+
+      - name: Select Certificate From Windows Store
+        shell: powershell
+        run: |
+          $CodeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
+          echo "THUMBPRINT: $($CodeSigningCert.Thumbprint)"
+          echo "THUMBPRINT=$($CodeSigningCert.Thumbprint)” >> $env:GITHUB_ENV
 
   conclude:
     runs-on: ubuntu-latest
