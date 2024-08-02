@@ -40,6 +40,11 @@ async function run(): Promise<void> {
 			masterKeyFile = path.join(installDir, "master.key");
 		}
 
+		core.setSecret(mode);
+		core.setSecret(username);
+		core.setSecret(password);
+		core.setSecret(totpSecret);
+
 		// first, download the installer
 		await core.group(`Downloading eSignerCKA from ${setupZipUrl}`, async () => {
 			const response = await fetch(setupZipUrl);
