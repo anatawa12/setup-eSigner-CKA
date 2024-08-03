@@ -1,5 +1,5 @@
-name: 'typescript action template for anatawa12'
-description: 'An template action'
+name: 'Setup eSigner CKA'
+description: 'A GitHub Action to setup eSigner CKA'
 author: 'anatawa12'
 
 inputs: 
@@ -30,4 +30,4 @@ runs:
 
 outputs:
   install-dir:
-    description: 'The directory to install the eSignerCKA'
+    description: 'The directory where eSignerCKA is installed'
