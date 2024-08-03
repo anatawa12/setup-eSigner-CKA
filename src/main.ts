@@ -17,6 +17,8 @@ const setupZipUrl =
 
 async function run(): Promise<void> {
 	try {
+		core.saveState("isPost", true);
+
 		const runnerTemp = process.env.RUNNER_TEMP;
 		assert.ok(runnerTemp, "RUNNER_TEMP is not set");
 		const tempDir = path.join(runnerTemp, randomUUID());
@@ -29,6 +31,9 @@ async function run(): Promise<void> {
 			installDir = path.join(tempDir, "install");
 		}
 		core.setOutput("install-dir", installDir);
+
+		core.saveState("tempZir", tempDir);
+		core.saveState("installDir", installDir);
 
 		// login options
 		const mode = core.getInput("mode"); // sandbox or product
@@ -97,6 +102,8 @@ async function run(): Promise<void> {
 				"/SUPPRESSMSGBOXES",
 				`/DIR=${installDir}`,
 			]);
+			// after install, clear extract dir
+			await io.rmRF(extractDir);
 		});
 
 		const ckaTool = path.join(installDir, "eSignerCKATool.exe");
@@ -128,4 +135,29 @@ async function run(): Promise<void> {
 	}
 }
 
-run();
+async function post(): Promise<void> {
+	try {
+		const tempDir = core.getState("tempDir");
+		const installDir = core.getState("installDir");
+
+		const ckaTool = path.join(installDir, "eSignerCKATool.exe");
+
+		// unload eSignerCKA
+		await core.group("Unloading eSignerCKA", async () => {
+			await exec.exec(ckaTool, ["load"]);
+		})
+
+		// cleanup
+		await io.rmRF(installDir);
+		await io.rmRF(tempDir);
+	} catch (error) {
+		if (error instanceof Error) core.setFailed(error);
+		else throw error;
+	}
+}
+
+if (core.getState("isPost")) {
+	post();
+} else {
+	run();
+}
