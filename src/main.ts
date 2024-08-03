@@ -12,8 +12,7 @@ import { Readable } from "node:stream";
 import { finished } from "node:stream/promises";
 
 const version = "1.0.7";
-const setupZipUrl =
-	`https://github.com/SSLcom/eSignerCKA/releases/download/v${version}/SSL.COM-eSigner-CKA_${version}.zip`;
+const setupZipUrl = `https://github.com/SSLcom/eSignerCKA/releases/download/v${version}/SSL.COM-eSigner-CKA_${version}.zip`;
 
 async function run(): Promise<void> {
 	try {
@@ -145,7 +144,7 @@ async function post(): Promise<void> {
 		// unload eSignerCKA
 		await core.group("Unloading eSignerCKA", async () => {
 			await exec.exec(ckaTool, ["load"]);
-		})
+		});
 
 		// cleanup
 		await io.rmRF(installDir);
