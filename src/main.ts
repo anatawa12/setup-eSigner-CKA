@@ -143,7 +143,7 @@ async function post(): Promise<void> {
 
 		// unload eSignerCKA
 		await core.group("Unloading eSignerCKA", async () => {
-			await exec.exec(ckaTool, ["load"]);
+			await exec.exec(ckaTool, ["unload"]);
 		});
 
 		// cleanup
