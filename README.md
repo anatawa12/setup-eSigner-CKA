@@ -10,7 +10,7 @@ A GitHub Action to set up [eSigner CKA]
 steps:
   - uses: anatawa12/setup-eSigner-CKA@v1
     with:
-      mode: sandbox # or production
+      mode: sandbox # or product
       username: ${{ secrets.E_SIGNER_USERNAME }}
       password: ${{ secrets.E_SIGNER_PASSWORD }}
       totp-secret: ${{ secrets.E_SIGNER_TOTP_SECRET }}
