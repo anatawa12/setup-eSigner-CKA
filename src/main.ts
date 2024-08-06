@@ -93,10 +93,11 @@ async function run(): Promise<void> {
 		await io.mv(originalInstaller, installerPath);
 
 		// Setup eSignerCKA in Silent Mode
-		await core.group("Running installer", async () => {
+		await core.group("Running installer in silent mode", async () => {
 			await io.mkdirP(installDir);
 			await exec.exec(installerPath, [
 				"/CURRENTUSER",
+				"/VERYSILENT",
 				"/SUPPRESSMSGBOXES",
 				`/DIR=${installDir}`,
 			]);
